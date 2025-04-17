@@ -56,18 +56,18 @@ def user_login():
             cursor = connection.cursor(dictionary=True)
             cursor.execute("SELECT * FROM Usuario WHERE Email = %s", (email,))
             user = cursor.fetchone()
-            print(user)  # Verifique se o usuário foi encontrado
+            print(user)  
             
             if user is None:
                 return jsonify({"message": "Usuário não encontrado"}), 404
             
-            # Tenta acessar 'ID_Usuario' e, se não existir, tenta 'id_usuario'
+            
             user_id = user.get('ID_Usuario') or user.get('id_usuario')
             
             if bcrypt.checkpw(senha.encode('utf-8'), user['Senha'].encode('utf-8')):
                 session['user_id'] = user_id
                 session['user_name'] = user['Nome']
-                print("Sessão criada após login:", session)  # Verifique a sessão aqui
+                print("Sessão criada após login:", session) 
                 return jsonify({"message": "Login bem-sucedido!"}), 200
             else:
                 return jsonify({"message": "Credenciais inválidas"}), 401
@@ -93,7 +93,6 @@ def register():
     email = user_data['email']
     senha = user_data['senha']
     
-    # Hash da senha com bcrypt
     hashed_senha = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
     
     try:
@@ -101,7 +100,6 @@ def register():
         if connection:
             cursor = connection.cursor()
             
-            # Verifica se o usuário já existe
             cursor.execute("SELECT * FROM Usuario WHERE Email = %s", (email,))
             user = cursor.fetchone()
             

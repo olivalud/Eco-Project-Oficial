@@ -1,14 +1,12 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Impede o envio padrão do formulário
+            event.preventDefault(); 
 
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
 
             console.log("Tentando login...");
-            // Verifica o elemento
             console.log("Elemento de resposta:", document.getElementById('responseMessage'));
 
-            // Chama a função para logar o usuário
             loginUser(email, senha);
         });
 
@@ -21,10 +19,8 @@
                 document.getElementById('responseMessage').innerHTML = `<p style="color:green">${response.data.message}</p>`;
                 console.log("Login bem-sucedido:", response.data);
 
-                // Limpar o campo de senha após o login bem-sucedido
                 document.getElementById('senha').value = '';
 
-                // Aqui você pode redirecionar para outra página ou executar outra ação
                  window.location.href = 'http://127.0.0.1:5500/eco-project/Home/home.html'; 
             })
             .catch(error => {
